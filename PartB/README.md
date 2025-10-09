@@ -12,5 +12,6 @@ mvn -q test
 ```
 
 Java 17 target; tested against JDK 17+.
-[![Open in GitHub Codespaces]([
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)]
 ](https://orange-fiesta-wr5q677769wvc967g.github.dev/)
