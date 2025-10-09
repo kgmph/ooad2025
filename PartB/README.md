@@ -12,3 +12,4 @@ mvn -q test
 ```
 
 Java 17 target; tested against JDK 17+.
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/kgmph/oad2025?quickstart=1)
