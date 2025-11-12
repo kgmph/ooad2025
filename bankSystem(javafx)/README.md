@@ -18,3 +18,9 @@ Boundary (GUI) classes (no business logic): `LoginView`, `RegisterView`, `Accoun
 From this folder:
 ```bash
 mvn -q javafx:run
+### Database
+- H2 embedded.
+- Schema lives at `src/main/resources/db/schema.sql`.
+- Loaded on startup via `DbInit.runSchema()`.
+
+
