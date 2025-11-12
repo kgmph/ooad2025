@@ -1,0 +1,160 @@
+package com.bank.repo.jdbc;
+
+import com.bank.repo.CustomerRepository;
+import com.bank.util.DbInit;
+
+import java.sql.*;
+import java.util.Optional;
+
+public class JdbcCustomerRepository implements CustomerRepository {
+
+  @Override
+  public Optional<Long> findIdByUsername(String username) {
+    String sql = "SELECT id FROM customers WHERE username = ?";
+    try (Connection c = DbInit.getConnection();
+         PreparedStatement ps = c.prepareStatement(sql)) {
+      ps.setString(1, username);
+      try (ResultSet rs = ps.executeQuery()) {
+        return rs.next() ? Optional.of(rs.getLong(1)) : Optional.empty();
+      }
+    } catch (Exception e) { throw new RuntimeException(e); }
+  }
+
+  @Override
+  public boolean verifyPassword(long customerId, String rawPassword) {
+    String sql = "SELECT password_hash FROM customers WHERE id = ?";
+    try (Connection c = DbInit.getConnection();
+         PreparedStatement ps = c.prepareStatement(sql)) {
+      ps.setLong(1, customerId);
+      try (ResultSet rs = ps.executeQuery()) {
+        if (!rs.next()) return false;
+        // TODO: replace with hashing (e.g., BCrypt) later
+        return rawPassword.equals(rs.getString(1));
+      }
+    } catch (Exception e) { throw new RuntimeException(e); }
+  }
+
+  @Override
+  public long create(String username, String passwordHash, String fullName) {
+    String sql = "INSERT INTO customers(username, password_hash, full_name) VALUES(?,?,?)";
+    try (Connection c = DbInit.getConnection();
+         PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+      ps.setString(1, username);
+      ps.setString(2, passwordHash);
+      ps.setString(3, fullName);
+      ps.executeUpdate();
+      try (ResultSet keys = ps.getGeneratedKeys()) {
+        if (keys.next()) return keys.getLong(1);
+        throw new RuntimeException("No generated key for customer");
+      }
+    } catch (Exception e) { throw new RuntimeException(e); }
+  }
+
+package com.bank.repo.jdbc;
+
+import com.bank.repo.AccountRepository;
+import com.bank.util.DbInit;
+
+import java.math.BigDecimal;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class JdbcAccountRepository implements AccountRepository {
+
+  @Override
+  public Optional<Long> findIdByAccNo(String accNo) {
+    String sql = "SELECT id FROM accounts WHERE acc_no = ?";
+    try (Connection c = DbInit.getConnection();
+         PreparedStatement ps = c.prepareStatement(sql)) {
+      ps.setString(1, accNo);
+      try (ResultSet rs = ps.executeQuery()) {
+        return rs.next() ? Optional.of(rs.getLong(1)) : Optional.empty();
+      }
+    } catch (Exception e) { throw new RuntimeException(e); }
+  }
+
+  @Override
+  public List<String> findAccNosByCustomerId(long customerId) {
+    String sql = "SELECT acc_no FROM accounts WHERE customer_id = ? ORDER BY acc_no";
+    List<String> list = new ArrayList<>();
+    try (Connection c = DbInit.getConnection();
+         PreparedStatement ps = c.prepareStatement(sql)) {
+      ps.setLong(1, customerId);
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) list.add(rs.getString(1));
+      }
+    } catch (Exception e) { throw new RuntimeException(e); }
+    return list;
+  }
+
+  @Override
+  public BigDecimal getBalance(long accountId) {
+    String sql = "SELECT balance FROM accounts WHERE id = ?";
+    try (Connection c = DbInit.getConnection();
+         PreparedStatement ps = c.prepareStatement(sql)) {
+      ps.setLong(1, accountId);
+      try (ResultSet rs = ps.executeQuery()) {
+        if (!rs.next()) throw new RuntimeException("Account not found: " + accountId);
+        return rs.getBigDecimal(1);
+      }
+    } catch (Exception e) { throw new RuntimeException(e); }
+  }
+
+  @Override
+  public void updateBalance(long accountId, BigDecimal newBalance) {
+    String sql = "UPDATE accounts SET balance = ? WHERE id = ?";
+    try (Connection c = DbInit.getConnection();
+         PreparedStatement ps = c.prepareStatement(sql)) {
+      ps.setBigDecimal(1, newBalance);
+      ps.setLong(2, accountId);
+      ps.executeUpdate();
+    } catch (Exception e) { throw new RuntimeException(e); }
+  }
+
+  @Override
+  public long create(long customerId, String accNo, String type, BigDecimal opening) {
+    String sql = "INSERT INTO accounts(customer_id, acc_no, type, balance) VALUES(?,?,?,?)";
+    try (Connection c = DbInit.getConnection();
+         PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+      ps.setLong(1, customerId);
+      ps.setString(2, accNo);
+      ps.setString(3, type);
+      ps.setBigDecimal(4, opening);
+      ps.executeUpdate();
+      try (ResultSet keys = ps.getGeneratedKeys()) {
+        if (keys.next()) return keys.getLong(1);
+        throw new RuntimeException("No generated key for account");
+      }
+    } catch (Exception e) { throw new RuntimeException(e); }
+  }
+}
+
+package com.bank.repo.jdbc;
+
+import com.bank.repo.TransactionRepository;
+import com.bank.util.DbInit;
+
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class JdbcTransactionRepository implements TransactionRepository {
+  @Override
+  public void add(long accountId, String kind, BigDecimal amount, BigDecimal balanceAfter, String note) {
+    String sql = "INSERT INTO transactions(acc_id, kind, amount, balance_after, note) VALUES (?,?,?,?,?)";
+    try (Connection c = DbInit.getConnection();
+         PreparedStatement ps = c.prepareStatement(sql)) {
+      ps.setLong(1, accountId);
+      ps.setString(2, kind);
+      ps.setBigDecimal(3, amount);
+      ps.setBigDecimal(4, balanceAfter);
+      ps.setString(5, note);
+      ps.executeUpdate();
+    } catch (Exception e) { throw new RuntimeException(e); }
+  }
+}
+
+
+}
