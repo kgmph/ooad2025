@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20"
+      styleClass="card"
+      stylesheets="@../css/style.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.bank.controller.TransactionController">
+
+    <!-- Title -->
+    <Label text="Account Transactions" styleClass="label-title"/>
+
+    <!-- Table -->
+    <TableView fx:id="table" prefWidth="650" prefHeight="350" styleClass="table-view">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="100"/>
+            <TableColumn fx:id="colAcc" text="Account" prefWidth="120"/>
+            <TableColumn fx:id="colAmount" text="Amount" prefWidth="150"/>
+            <TableColumn fx:id="colType" text="Type" prefWidth="120"/>
+            <TableColumn fx:id="colTs" text="Timestamp" prefWidth="160"/>
+        </columns>
+    </TableView>
+
+    <!-- Back Button -->
+    <Button text="Back" onAction="#back" maxWidth="200"/>
+
+</VBox>

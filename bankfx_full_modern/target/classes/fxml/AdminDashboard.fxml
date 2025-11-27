@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox spacing="25" alignment="CENTER"
+      styleClass="card"
+      stylesheets="@../css/style.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.bank.controller.AdminDashboardController">
+
+    <Label text="Admin Dashboard" styleClass="label-title"/>
+
+    <Label text="(Admin features can be added here)" styleClass="label-subtitle"/>
+
+    <Button text="Logout" onAction="#logout" maxWidth="200"/>
+
+</VBox>
+

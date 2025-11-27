@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox alignment="CENTER" spacing="20"
+      styleClass="card"
+      stylesheets="@../css/style.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.bank.controller.CreateAccountController">
+
+    <Label text="Create Bank Account" styleClass="label-title"/>
+
+    <ComboBox fx:id="typeBox" promptText="Account Type" maxWidth="250"/>
+
+    <TextField fx:id="balanceField" promptText="Opening Balance" maxWidth="250"/>
+
+    <TextField fx:id="employerField" promptText="Employer (Cheque only)" maxWidth="250"/>
+
+    <Button text="Create Account" onAction="#createAccount" maxWidth="250"/>
+    <Button text="Back" onAction="#back" maxWidth="250"/>
+
+    <Label fx:id="msg" textFill="red"/>
+
+</VBox>

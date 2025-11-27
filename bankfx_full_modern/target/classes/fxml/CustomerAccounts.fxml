@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox spacing="25" alignment="CENTER"
+      styleClass="card"
+      stylesheets="@../css/style.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.bank.controller.CustomerAccountsController">
+
+    <Label text="My Accounts" styleClass="label-title"/>
+
+    <VBox fx:id="accountList" spacing="12" alignment="CENTER"
+          prefWidth="280"/>
+
+    <Button text="Back" onAction="#back" maxWidth="220"/>
+
+</VBox>

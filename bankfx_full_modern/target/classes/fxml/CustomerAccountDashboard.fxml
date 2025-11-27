@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox spacing="25" alignment="CENTER"
+      styleClass="card"
+      stylesheets="@../css/style.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.bank.controller.CustomerAccountDashboardController">
+
+    <Label text="Account Dashboard" styleClass="label-title"/>
+
+    <Label fx:id="accountId" styleClass="label-subtitle"/>
+    <Label fx:id="accountType" styleClass="label-subtitle"/>
+
+    <Label fx:id="accountBalance"
+           style="-fx-font-size: 20; -fx-text-fill: #28a745; -fx-font-weight: bold;"/>
+
+    <Button text="Deposit" onAction="#deposit" maxWidth="220"/>
+    <Button text="Withdraw" onAction="#withdraw" maxWidth="220"/>
+    <Button text="Transactions" onAction="#transactions" maxWidth="220"/>
+
+    <Button text="Back" onAction="#back" maxWidth="220"/>
+
+</VBox>

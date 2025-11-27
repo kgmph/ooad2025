@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox alignment="CENTER" spacing="20"
+      styleClass="card"
+      stylesheets="@../css/style.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.bank.controller.DepositController">
+
+    <Label text="Deposit Funds" styleClass="label-title"/>
+
+    <TextField fx:id="amountField" promptText="Amount" maxWidth="250"/>
+
+    <Button text="Deposit" onAction="#deposit" maxWidth="250"/>
+
+    <Button text="Back" onAction="#back" maxWidth="250"/>
+
+    <Label fx:id="msg" textFill="green"/>
+
+</VBox>

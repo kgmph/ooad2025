@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="18"
+      styleClass="card"
+      stylesheets="@../css/style.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.bank.controller.RegisterController">
+
+    <!-- Title -->
+    <Label text="Create Customer Account" styleClass="label-title"/>
+
+    <!-- Fields -->
+    <TextField fx:id="fullnameField" promptText="Full Name" maxWidth="250"/>
+    <TextField fx:id="usernameField" promptText="Username" maxWidth="250"/>
+    <PasswordField fx:id="passwordField" promptText="Password" maxWidth="250"/>
+    <PasswordField fx:id="confirmField" promptText="Confirm Password" maxWidth="250"/>
+
+    <!-- Buttons -->
+    <Button text="Register" onAction="#register" maxWidth="250"/>
+    <Button text="Back to Login" onAction="#backToLogin" maxWidth="250"/>
+
+    <!-- Message -->
+    <Label fx:id="msg" textFill="red"/>
+
+</VBox>

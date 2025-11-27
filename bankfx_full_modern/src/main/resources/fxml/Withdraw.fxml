@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox alignment="CENTER" spacing="20"
+      styleClass="card"
+      stylesheets="@../css/style.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.bank.controller.WithdrawController">
+
+    <!-- Title -->
+    <Label text="Withdraw Funds" styleClass="label-title"/>
+
+    <!-- Amount Input -->
+    <TextField fx:id="amountField"
+               promptText="Withdrawal Amount"
+               maxWidth="250"
+               styleClass="text-field"/>
+
+    <!-- Withdraw Button -->
+    <Button text="Withdraw"
+            onAction="#withdraw"
+            maxWidth="250"/>
+
+    <!-- Back Button -->
+    <Button text="Back"
+            onAction="#back"
+            maxWidth="250"/>
+
+    <!-- Status Message -->
+    <Label fx:id="msg" textFill="green"/>
+
+</VBox>
